@@ -1,0 +1,195 @@
+/*#include <iostream>
+#include <locale.h>
+typedef struct node
+{
+	int zn;
+	struct node* next;
+};
+struct node* head = NULL;
+struct node* last = NULL;
+
+struct node *add(void)
+{
+	int a;
+	struct node* p = NULL;
+	p = (node*)malloc(sizeof(struct node));
+	printf("Введите значение элемента:");
+	scanf_s(" %d", &a);
+	p->zn = a;
+	p->next = NULL;
+	return p;
+}
+
+void spstore(void)
+{
+	struct node* p = NULL;
+	p = add();
+	if (head == NULL && p != NULL)	// если списка нет, то устанавливаем голову списка
+	{
+		head = p;
+		last = p;
+	}
+	else if (head != NULL && p != NULL) // список уже есть, то вставляем в конец
+	{
+		last->next = p;
+		last = p;
+	}
+	return;
+}
+
+void rewiew(void)
+{
+	struct node* p = head;
+	while (p)
+	{
+		printf("%d  ", p->zn);
+		p = p->next;
+	}
+	return;
+}
+
+void opr(void)
+{
+	struct node* p = NULL;
+	struct node* str = head;
+	p = add();
+	int n,c=1;
+	printf("\nНомер в списке");
+	scanf_s("%d", &n);
+	while ((c < n-1) && (str->next != NULL))
+	{
+		str = str->next;
+		c++;
+	}
+	p->next = str->next;
+	str->next = p;
+	return;
+}
+
+int main()
+{
+	setlocale(LC_ALL, "Rus");
+	int begin = 0;
+	while (begin != 4)
+	{
+		printf("\n1.Добавить элемент\n");
+		printf("2.Вывести набор элементов\n");
+		printf("3.Добавить элемент в опр место списка\n");
+		printf("4.Выход\n");
+		printf("Выбор: ");
+		scanf_s("%d", &begin);
+
+		if (begin == 1)
+		{
+			spstore();
+		}
+
+		if (begin == 2)
+		{
+			rewiew();
+		}
+
+		if (begin == 3)
+		{
+			opr();
+		}
+	}
+}*/
+
+
+#include <iostream>
+#include <locale.h>
+typedef struct node
+{
+	int zn;
+	struct node* next;
+	struct node* prev;
+};
+struct node* head = NULL;
+struct node* last = NULL;
+
+struct node *add(void)
+{
+	int a;
+	struct node* p = NULL;
+	p = (node*)malloc(sizeof(struct node));
+	printf("Введите значение элемента:");
+	scanf_s(" %d", &a);
+	p->zn = a;
+	p->next = head;
+	p->prev=NULL;
+	if(head) head->prev = p;
+	head = p;
+	if (!last) last=head;
+	return p;
+}
+
+void rewiew(void)
+{
+	struct node* p = head;
+	while (p)
+	{
+		printf("%d  ", p->zn);
+		p = p->next;
+	}
+	return;
+}
+
+void stack(void)
+{
+	int n=1;
+	struct node* p = head;
+	for(int i=0;i<n;i++)
+		{
+		head=p->next;
+		n++;
+	}
+	return;
+}
+/*void spstore(void)
+{
+	struct node* p = NULL;
+	p = add();
+	if (head == NULL && p != NULL)	// если списка нет, то устанавливаем голову списка
+	{
+		head = p;
+		last = p;
+	}
+	else if (head != NULL && p != NULL) // список уже есть, то вставляем в конец
+	{
+		last->next = p;
+		last = p;
+	}
+	return;
+}*/
+int main()
+{
+	setlocale(LC_ALL, "Rus");
+	int begin = 0;
+	while (begin != 4)
+	{
+		printf("\n1.Добавить элемент\n");
+		printf("2.Вывести набор элементов\n");
+		printf("3.Добавить элемент в опр место списка\n");
+		printf("4.Выход\n");
+		printf("Выбор: ");
+		scanf_s("%d", &begin);
+
+		if (begin == 1)
+		{
+			add();
+			//spstore();
+		}
+
+		if (begin == 2)
+		{
+
+			rewiew();
+		}
+
+		if (begin == 3)
+		{
+			stack();
+		}
+	}
+}
